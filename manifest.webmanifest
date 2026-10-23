@@ -1,0 +1,19 @@
+{
+  "name": "SIVE 行情终端",
+  "short_name": "SIVE行情",
+  "description": "Sivers Semiconductors 行情看板",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#08111f",
+  "theme_color": "#0b1220",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
