@@ -6,7 +6,9 @@ android {
     defaultConfig {
         applicationId 'com.globalmarket.app'
         minSdk 23
-        targetSdk 35
+        // Target 34 for the first sideloaded test build to avoid forced edge-to-edge
+        // layout on Android 15 before safe-area handling is added.
+        targetSdk 34
         versionCode 1
         versionName '0.1.0'
     }
