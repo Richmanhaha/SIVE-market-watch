@@ -1,0 +1,46 @@
+name: Build Global Market Android APK
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'android-app/**'
+      - '.github/workflows/build-global-market-apk.yml'
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: android-app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Build debug APK
+        run: gradle assembleDebug
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: global-market-debug-apk
+          path: android-app/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+      - name: Publish test APK release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: global-market-v0.1.${{ github.run_number }}
+          name: 全球行情通测试版 0.1.${{ github.run_number }}
+          prerelease: true
+          generate_release_notes: true
+          files: android-app/app/build/outputs/apk/debug/app-debug.apk
